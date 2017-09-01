@@ -258,7 +258,7 @@ class socksocket(socket.socket):
                 # Resolve locally
                 ipaddr = socket.inet_aton(socket.gethostbyname(destaddr))
                 req = req + chr(0x01).encode() + ipaddr
-        req = req + struct.pack(">H", destport)
+        req = bytes(req) + bytes(struct.pack(">H", destport))
         self.sendall(req)
         # Get the response
         resp = self.__recvall(4)
